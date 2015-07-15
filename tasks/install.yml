@@ -1,0 +1,17 @@
+---
+# search role tasks
+- include_vars: "{{ ansible_os_family }}.yml"
+
+- include: install-RedHat.yml
+  when: ansible_os_family == 'RedHat'
+
+- include: install-Debian.yml
+  when: ansible_os_family == 'Debian'
+
+- name: Install elasticsearch plugins
+  action: >
+    shell bin/plugin -install {{ item }}
+    chdir={{ elasticsearch_home_dir }}
+  with_items: elasticsearch_plugins
+  ignore_errors: yes
+  notify: elasticsearch-restart

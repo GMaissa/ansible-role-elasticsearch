@@ -1,0 +1,11 @@
+---
+# search role tasks
+- include: install.yml
+  tags:
+    - elasticsearch
+    - install
+
+- include: configure.yml
+  tags:
+    - elasticsearch
+    - configure

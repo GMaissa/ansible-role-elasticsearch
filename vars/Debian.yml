@@ -1,0 +1,3 @@
+---
+elasticsearch_dependencies:
+  - openjdk-7-jre

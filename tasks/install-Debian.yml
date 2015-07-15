@@ -1,0 +1,21 @@
+---
+- name: Debian | Install Elastic RPM key
+  apt_key: url=https://packages.elasticsearch.org/GPG-KEY-elasticsearch
+           state=present
+
+- name: Debian | Install Elasticsearch Deb repo
+  shell: echo "deb http://packages.elasticsearch.org/elasticsearch/1.4/debian stable main" | tee /etc/apt/sources.list.d/elasticsearch.list
+
+- name: Debian | Install elasticsearch dependencies
+  apt: name={{ item }}
+       state=present
+       update_cache=yes
+  with_items: elasticsearch_dependencies
+
+- name: Debian | Install elasticsearch
+  apt: name="elasticsearch={{ elasticsearch_version }}"
+       state=present
+       update_cache=yes
+
+- name: Debian | Ensure elasticsearch is running automatically at boot time
+  command: update-rc.d elasticsearch defaults 95 10

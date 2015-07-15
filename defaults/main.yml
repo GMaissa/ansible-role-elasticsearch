@@ -1,0 +1,7 @@
+---
+elasticsearch_version: 1.4.4
+
+elasticsearch_plugins:
+  - elasticsearch/elasticsearch-mapper-attachments/2.4.3
+  - elasticsearch/elasticsearch-analysis-icu/2.4.2
+
