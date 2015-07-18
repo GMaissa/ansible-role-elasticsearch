@@ -12,4 +12,4 @@
     chdir={{ elasticsearch_home_dir }}
   with_items: elasticsearch_plugins
   ignore_errors: yes
-  notify: elasticsearch-restart
+  notify: Restart Elasticsearch
