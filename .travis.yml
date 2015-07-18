@@ -16,15 +16,21 @@ before_script:
   - echo localhost > tests/inventory
 
 script:
-  # Check the role/playbook's syntax.
+  # Check playbook's syntax.
   - "ansible-playbook -i tests/inventory tests/playbook.yml --syntax-check"
 
-  # Run the role/playbook with ansible-playbook.
+  # First playbook run.
   - "ansible-playbook -i tests/inventory tests/playbook.yml --connection=local --sudo"
 
-  # Run the role/playbook again, checking to make sure it's idempotent.
+  # Second playbook run to check idempotent status.
   - >
     ansible-playbook -i tests/inventory tests/playbook.yml --connection=local --sudo
     | grep -q 'changed=0.*failed=0'
     && (echo 'Idempotence test: pass' && exit 0)
     || (echo 'Idempotence test: fail' && exit 1)
+
+  # Third playbook run (temporary)
+  - "ansible-playbook -i tests/inventory tests/playbook.yml --connection=local --sudo"
+
+  # Check elasticsearch status
+  - sudo /etc/init.d/elasticsearch status || exit 1
