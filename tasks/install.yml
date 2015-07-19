@@ -11,5 +11,7 @@
     shell bin/plugin -install {{ item }}
     chdir={{ elasticsearch_home_dir }}
   with_items: elasticsearch_plugins
+  register: elasticsearch_install_plugin
+  changed_when: elasticsearch_install_plugin.stdout.find(' already exists') == false
   ignore_errors: yes
   notify: Restart Elasticsearch
