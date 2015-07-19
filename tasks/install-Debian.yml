@@ -4,7 +4,8 @@
            state=present
 
 - name: Debian | Install Elasticsearch Deb repo
-  shell: echo "deb http://packages.elasticsearch.org/elasticsearch/1.4/debian stable main" | tee /etc/apt/sources.list.d/elasticsearch.list
+  copy: content="deb http://packages.elasticsearch.org/elasticsearch/1.4/debian stable main"
+        dest=/etc/apt/sources.list.d/elasticsearch.list
 
 - name: Debian | Install elasticsearch dependencies
   apt: name={{ item }}
